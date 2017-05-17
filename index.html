@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      button {
+        margin-bottom: 10px;
+        display: block;
+        width: 150px
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CORS</h1>
+
+    <button onclick="sameOrigin();">Same</button>
+    <button onclick="simpleNotAllow();">Simple Not Allow</button>
+    <button onclick="simpleAllow();">Simple Allow</button>
+    <button onclick="notAllowHeaders();">Not Allow Headers</button>
+    <button onclick="allowHeaders();">Allow Headers</button>
+
+    <script type="text/javascript">
+
+      var urls = [
+        'http://localhost:5050',
+        'http://cors.com:5050',
+      ];
+
+      function sameOrigin() {
+        var url = document.location.origin + '/api/notAllow';
+        var api = {method:'GET'};
+        fetch(url,api)
+          .then(res => res.json())
+          .then(json => console.log('Json:',json))
+          .catch(err => console.log('Error:',err));
+      }
+
+      function simpleNotAllow() {
+        var url = 'http://cors.com:5050' + '/api/notAllow';
+        var api = {method:'GET'};
+        fetch(url,api)
+          .then(res => res.json())
+          .then(json => console.log('Json:',json))
+          .catch(err => console.log('Error:',err));
+      }
+
+      function simpleAllow() {
+        var url = 'http://cors.com:5050' + '/api/allow';
+        var api = {method:'GET'};
+        fetch(url,api)
+          .then(res => res.json())
+          .then(json => console.log('Json:',json))
+          .catch(err => console.log('Error:',err));
+      }
+
+      function notAllowHeaders() {
+        var url = 'http://cors.com:5050' + '/api/notAllow/headers';
+        var api = {
+          method:'GET',
+          headers: { Authorization: 'Trust me ;)' }
+        };
+        fetch(url,api)
+          .then(res => res.json())
+          .then(json => console.log('Json:',json))
+          .catch(err => console.log('Error:',err));
+      }
+
+      function allowHeaders() {
+        var url = 'http://cors.com:5050' + '/api/allow/headers';
+        var api = {
+          method:'GET',
+          headers: { Authorization: 'Trust me ;)' }
+        };
+        fetch(url,api)
+          .then(res => res.json())
+          .then(json => console.log('Json:',json))
+          .catch(err => console.log('Error:',err));
+      }
+    </script>
+  </body>
+</html>
