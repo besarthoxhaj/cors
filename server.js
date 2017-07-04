@@ -41,6 +41,7 @@ http.createServer((req,res) => {
     if(req.method === 'OPTIONS') {
       res.setHeader('Access-Control-Allow-Headers','Authorization');
       res.setHeader('Access-Control-Allow-Origin','*');
+      // res.statusCode = 302;
       res.end();
       return;
     }
